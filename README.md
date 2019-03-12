@@ -1,5 +1,5 @@
 # Weekend6AmazonBooksTry2
-RecyclerView with MVVM From Amazon Books
+RecyclerView using MVVM to display Harry Potter products from Amazon.
 
 
 Recycler View of Harry Potter Books
