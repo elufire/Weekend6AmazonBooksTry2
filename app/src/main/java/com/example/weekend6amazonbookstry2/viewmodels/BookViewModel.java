@@ -2,12 +2,15 @@ package com.example.weekend6amazonbookstry2.viewmodels;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.content.Intent;
 import android.databinding.Bindable;
 import android.databinding.Observable;
 import android.databinding.PropertyChangeRegistry;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 
+import com.example.weekend6amazonbookstry2.Main2Activity;
 import com.example.weekend6amazonbookstry2.book.Book;
 import com.google.gson.Gson;
 
@@ -26,12 +29,9 @@ public class BookViewModel extends AndroidViewModel implements Observable {
 
     PropertyChangeRegistry propertyChangeRegistry = new PropertyChangeRegistry();
 
-    Book book = new Book();
     public BookViewModel(@NonNull Application application) {
         super(application);
     }
-
-
 
     @Override
     public void addOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
@@ -41,15 +41,6 @@ public class BookViewModel extends AndroidViewModel implements Observable {
     @Override
     public void removeOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
         propertyChangeRegistry.remove(callback);
-    }
-
-    public void notifyAllBindedItems(){
-        propertyChangeRegistry.notifyCallbacks(this, 0, null);
-    }
-
-    public void notifySingleBindedItems(int fieldId){
-        propertyChangeRegistry.notifyCallbacks(this, fieldId, null);
-
     }
 
 }

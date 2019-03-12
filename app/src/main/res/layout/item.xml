@@ -6,6 +6,7 @@
         <variable
             name="book"
             type="com.example.weekend6amazonbookstry2.book.Book"/>
+
     </data>
 
     <LinearLayout
@@ -13,23 +14,34 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> book.onClick(book)}">
+        android:padding="20dp"
+        android:onClick="@{(view) -> book.onClick(view, book)}"
+        android:background="@drawable/thick_border">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             bind:imageUrl="@{book.imageURL}"/>
 
         <TextView
             android:id="@+id/tvUserEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
             android:text="@{book.title}"/>
 
         <TextView
             android:id="@+id/tvPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
             android:text="@{book.author}"/>
 
     </LinearLayout>

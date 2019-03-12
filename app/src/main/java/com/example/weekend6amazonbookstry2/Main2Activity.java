@@ -15,10 +15,16 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Created a transition to slide out previous activity and slide in new activity from the
+        //right side of the screen
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        setContentView(R.layout.activity_main2);
+
+        //Get the book object sent through the intent that has been parceled
         Intent intent = getIntent();
         Book book = intent.getParcelableExtra("book");
+
+        //Set up the activity binding for the activity
         ActivityMain2Binding activityMainBinding =
                 DataBindingUtil.setContentView(this, R.layout.activity_main2);
         activityMainBinding.setBookDisplay(book);

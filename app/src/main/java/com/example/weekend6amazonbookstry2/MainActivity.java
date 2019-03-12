@@ -24,29 +24,30 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    //Declare OkHttp helper and activity binding
     OkHttpHelper okHttpHelper;
     ActivityMainBinding activityMainBinding;
-    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        okHttpHelper = new OkHttpHelper();
-        okHttpHelper.asyncOkHttpBooks("http://de-coding-test.s3.amazonaws.com/books.json");
+        //Set the layout to inflate to and the viewmodel for this activity
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         activityMainBinding.setBookViewModel(new BookViewModel(getApplication()));
         activityMainBinding.executePendingBindings();
+
+        //initialize the okhttp helper, make the api call passing the amazon url
+        okHttpHelper = new OkHttpHelper();
+        okHttpHelper.asyncOkHttpBooks("http://de-coding-test.s3.amazonaws.com/books.json");
+
+
+
+        //Build the Flurry agent for gathering information on user activity
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
                 .build(this, "GR4H9PM5DF5Z94JRNTM7");
-//        imageView = findViewById(R.id.imageView);
-//        Glide.with(this).load("https://www.drscholls.com/static/media/images/drscholls/m_SC_LANDING_MODULES_750x400_Foot.jpg")
-//                .into(imageView);
-
-
     }
 
-
+//Register and subscribe to Eventbus for this activity
     @Override
     protected void onStart() {
         super.onStart();
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    //Listen for incoming arrayList of books an main thread
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getBookList(ArrayList<Book> bookList){
         Log.d("TAG", "GETBBOOKLISTRETURN: " + bookList.size() );
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.rvRecyclerView.setAdapter(recyclerViewAdapter);
     }
 
+    //Listen for incoming Books after a book is clicked from recycler view
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getBookFromClick(Book book){
         FlurryAgent.logEvent("Recycler-Item-Clicked");

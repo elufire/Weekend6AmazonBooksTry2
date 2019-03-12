@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     ArrayList<Book> books;
 
-
+    //Constructor for Adapter
     public RecyclerViewAdapter(ArrayList<Book> passedbooks){
         books = passedbooks;
     }
@@ -25,28 +25,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
+        //inflate the layout
         ItemBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(viewGroup.getContext()),
                 R.layout.item, viewGroup, false);
-
+        //Create the viewholder and pass the binding
         ViewHolder viewHolder = new ViewHolder(binding);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
+        //Pass each book into each created ViewHolder
         Book book = books.get(position);
         viewHolder.itemBinding.setBook(book);
     }
 
+    //Method for getting the ArrayList Size
     @Override
     public int getItemCount() {
         return books.size();
     }
 
+    //Class for Viewholder
     public class ViewHolder extends RecyclerView.ViewHolder {
         ItemBinding itemBinding;
         public ViewHolder(@NonNull ItemBinding itemBinding) {
+            //Set itemBinding to the appropriate view and set the viewHolder to the appropriate view
             super(itemBinding.getRoot());
             this.itemBinding = itemBinding;
         }

@@ -1,14 +1,17 @@
 
 package com.example.weekend6amazonbookstry2.book;
 
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.weekend6amazonbookstry2.Main2Activity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -101,9 +104,12 @@ public class Book implements Parcelable
         this.imageURL = imageURL;
     }
 
-    public void onClick(Book book){
+    public void onClick(View view, Book book){
         Log.d("TAG", "IN ONCLICK" + book.getTitle());
-        EventBus.getDefault().post(book);
+
+        Intent intent = new Intent(view.getContext(), Main2Activity.class);
+        intent.putExtra("book", book);
+        view.getContext().startActivity(intent);
     }
 
     public void writeToParcel(Parcel dest, int flags) {
